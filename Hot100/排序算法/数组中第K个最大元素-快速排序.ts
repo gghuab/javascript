@@ -8,7 +8,7 @@ function findKthLargest(nums: number[], k: number): number {
     if (left >= right) {
       return nums[left]
     }
-
+    
     //取随机一个在left和right之间的index作为此次的pivot
     let randomIdx = left + Math.floor(Math.random() * (right - left + 1))
     let pivot = nums[randomIdx]

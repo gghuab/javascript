@@ -3,7 +3,7 @@ import ISorted from './utils.js'
 function quickSort(arr: number[]): number[] {
   function partition(left: number, right: number) {
     if (left >= right) {
-      return
+      return arr[left]
     }
 
     const pivot = arr[right] //选择最后一个元素作为pivot
@@ -40,8 +40,8 @@ function quickSort(arr: number[]): number[] {
     partition(left, j)
     partition(i + 1, right)
   }
-  partition(0, arr.length - 1)
 
+  partition(0, arr.length - 1)
   return arr
 }
 

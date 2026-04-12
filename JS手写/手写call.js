@@ -1,4 +1,5 @@
 // 在 Function 的原型上挂载自定义的 myCall 方法
+//主要的原理就是把函数挂载到context对象上，然后调用这个函数，此时函数内部的this就指向了context对象，最后再删除这个临时属性，返回结果。
 Function.prototype.myCall = function (context, ...args) {
   // 1. 处理传入的 context 为 null 或 undefined 的情况
   // 在非严格模式下，传入 null/undefined 时，this 指向全局对象（浏览器中为 window，Node 中为 global）

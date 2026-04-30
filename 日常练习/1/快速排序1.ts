@@ -1,5 +1,3 @@
-import ISorted from './utils.js'
-
 function quickSort(arr: number[]): number[] {
   function partition(left: number, right: number) {
     if (left >= right) {
@@ -18,14 +16,14 @@ function quickSort(arr: number[]): number[] {
     let j = right - 1
 
     while (i <= j) {
-      //右边找到一个比pivot小的，左边找到一个比pivot大的
-      while (arr[j] > pivot) {
-        j--
-      }
+      //左边找到一个比pivot大的，右边找到一个比pivot小的，
       while (arr[i] < pivot) {
         i++
       }
-
+      while (arr[j] > pivot) {
+        j--
+      }
+      
       if (i <= j) {
         //如果此时i还是小于等于J，则交换这两元素，使得小的在左边，大的在右边，
         // 交换了还要继续向前推进 也就是i++,j--
@@ -50,5 +48,3 @@ function quickSort(arr: number[]): number[] {
   partition(0, arr.length - 1)
   return arr
 }
-
-console.log(ISorted(quickSort))

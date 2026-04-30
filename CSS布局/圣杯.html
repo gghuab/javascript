@@ -1,0 +1,60 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .container {
+        border: 1px solid black;
+        /* width: 300px; */
+        /* 改为圣杯布局：不需要 absolute 定位，为两边预留 padding 空位即可 */
+        padding: 0 100px;
+        overflow: hidden;
+      }
+      .center {
+        float: left;
+        border: 1px solid black;
+        width: 100%;
+        height: 100px;
+        background-color: #7c8500;
+      }
+      .left {
+        border: 1px solid black;
+        width: 100px;
+        height: 100px;
+        float: left;
+        /* 把左侧栏拉回与主体首行同一水平 */
+        margin-left: -100%;
+        /* 使用 relative 推进左侧保留的 padding 区域中 */
+        position: relative;
+        left: -100px;
+        background-color: red;
+      }
+      .right {
+        border: 1px solid black;
+        width: 100px;
+        height: 100px;
+        float: left;
+        /* 抵消右侧自身宽度，上拉至同一水平 */
+        margin-left: -100px;
+        /* 使用 relative 推进右侧保留的 padding 区域中 */
+        position: relative;
+        right: -100px;
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- 圣杯布局中要把 .center 写在代码的最前面，保证主内容优先渲染 -->
+      <div class="center">center</div>
+      <div class="left">left</div>
+      <div class="right">right</div>
+    </div>
+  </body>
+</html>

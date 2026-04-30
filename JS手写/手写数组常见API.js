@@ -49,7 +49,7 @@ Array.prototype.myFilter = function (callback, thisArg) {
   const len = array.length
   // 1. 创建新数组用来存放符合条件的元素
   const res = []
-  
+
   for (let i = 0; i < len; i++) {
     if (i in array) {
       // 2. 执行回调，如果结果为 true（或真值），则 push
@@ -60,4 +60,46 @@ Array.prototype.myFilter = function (callback, thisArg) {
   }
 
   return res
+}
+
+Array.prototype.myReduce = function (callback, initialValue) {
+  if (typeof callback !== 'function') {
+    throw new TypeError(callback + ' is not a function')
+  }
+
+  const array = this
+  const len = array.length
+  let accumulator
+  let startIndex = 0
+
+  // 1. 判断是否传入了 initialValue（注意这里用 arguments 的长度来判断，因为可能专门传入 undefined 或 null）
+  if (arguments.length >= 2) {
+    accumulator = initialValue
+  } else {
+    // 2. 若未传入，寻找数组中的第一个有效元素作为初始值
+    let k = 0
+    let found = false
+    while (k < len && !found) {
+      if (k in array) {
+        accumulator = array[k]
+        found = true
+      }
+      k++
+    }
+    // 3. 如果没传初始值，而且数组又是个空数组（或全是空位），根据原生规范是要抛出报错的
+    if (!found) {
+      throw new TypeError('Reduce of empty array with no initial value')
+    }
+    startIndex = k
+  }
+
+  // 4. 遍历剩下的有效元素开始累加运算
+  for (let i = startIndex; i < len; i++) {
+    if (i in array) {
+      accumulator = callback(accumulator, array[i], i, array)
+    }
+  }
+
+  // 5. 返回最终结果
+  return accumulator
 }

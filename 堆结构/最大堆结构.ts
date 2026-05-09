@@ -23,6 +23,7 @@ export default class Heap<T> {
       }
     }
   }
+
   heapifyDown(startIndex: number) {
     let index = startIndex
     while (index * 2 + 1 < this.length) {

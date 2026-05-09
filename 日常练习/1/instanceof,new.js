@@ -16,6 +16,7 @@ function myinstanceof(left, right) {
 }
 
 function mynew(constructor, ...args) {
+  
   const obj = Object.create(constructor.prototype)
 
   let result = constructor.apply(obj, args)

@@ -83,7 +83,7 @@ Promise.myallSettled = function (promises) {
 
     let result = []
     let count = 0
-    
+
     promises.forEach((item, index) => {
       Promise.resolve(item).then(
         (val) => {

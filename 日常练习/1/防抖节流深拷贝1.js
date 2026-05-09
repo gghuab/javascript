@@ -31,6 +31,7 @@ function deepClone(obj, map = new WeakMap()) {
   if (map.has(obj)) {
     return map.get(obj)
   }
+  
   let result = Array.isArray(obj) ? [] : {}
   map.set(obj, result)
 

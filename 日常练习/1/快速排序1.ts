@@ -23,7 +23,7 @@ function quickSort(arr: number[]): number[] {
       while (arr[j] > pivot) {
         j--
       }
-      
+
       if (i <= j) {
         //如果此时i还是小于等于J，则交换这两元素，使得小的在左边，大的在右边，
         // 交换了还要继续向前推进 也就是i++,j--
@@ -48,3 +48,4 @@ function quickSort(arr: number[]): number[] {
   partition(0, arr.length - 1)
   return arr
 }
+export {}

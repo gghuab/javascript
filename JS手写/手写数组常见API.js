@@ -63,43 +63,26 @@ Array.prototype.myFilter = function (callback, thisArg) {
 }
 
 Array.prototype.myReduce = function (callback, initialValue) {
-  if (typeof callback !== 'function') {
-    throw new TypeError(callback + ' is not a function')
+  // 1. 如果数组为空，且没传初始值，原生 reduce 会报错
+  if (this.length === 0 && arguments.length < 2) {
+    throw new TypeError('Reduce of empty array with no initial value')
   }
 
-  const array = this
-  const len = array.length
-  let accumulator
-  let startIndex = 0
+  // 2. 判断有没有传 initialValue (用 arguments.length 才是最严谨的)
+  let hasInitialValue = arguments.length >= 2
 
-  // 1. 判断是否传入了 initialValue（注意这里用 arguments 的长度来判断，因为可能专门传入 undefined 或 null）
-  if (arguments.length >= 2) {
-    accumulator = initialValue
-  } else {
-    // 2. 若未传入，寻找数组中的第一个有效元素作为初始值
-    let k = 0
-    let found = false
-    while (k < len && !found) {
-      if (k in array) {
-        accumulator = array[k]
-        found = true
-      }
-      k++
-    }
-    // 3. 如果没传初始值，而且数组又是个空数组（或全是空位），根据原生规范是要抛出报错的
-    if (!found) {
-      throw new TypeError('Reduce of empty array with no initial value')
-    }
-    startIndex = k
+  // 3. 设定累加器的初始值
+  let acc = hasInitialValue ? initialValue : this[0]
+
+  // 4. 设定循环的起始索引
+  let startIndex = hasInitialValue ? 0 : 1
+
+  // 5. 开始遍历计算
+  for (let i = startIndex; i < this.length; i++) {
+    // 传给 callback 4 个参数：累加值、当前值、当前索引、原数组
+    acc = callback(acc, this[i], i, this)
   }
 
-  // 4. 遍历剩下的有效元素开始累加运算
-  for (let i = startIndex; i < len; i++) {
-    if (i in array) {
-      accumulator = callback(accumulator, array[i], i, array)
-    }
-  }
-
-  // 5. 返回最终结果
-  return accumulator
+  // 6. 返回最终结果
+  return acc
 }

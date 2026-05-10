@@ -67,6 +67,7 @@ Array.prototype.myReduce = function (callback, initialValue) {
   if (this.length === 0 && arguments.length < 2) {
     throw new TypeError('Reduce of empty array with no initial value')
   }
+
   // 测试的注释
   // 2. 判断有没有传 initialValue (用 arguments.length 才是最严谨的)
   let hasInitialValue = arguments.length >= 2
